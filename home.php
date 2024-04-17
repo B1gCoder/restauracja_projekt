@@ -1,65 +1,144 @@
 <?php
 require("connection.php");
-
-$result = mysqli_query($conn, "SELECT * FROM stoliki");
-
-// while ($row = mysqli_fetch_array($result)) {
-//     echo "Stolik dla " . $row['pojemnosc'] . " osób" . " (ID Stolika: " . $row['id_stolika'] . ")" . "<br> ";
-// }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restauracja</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="skrypt.js"></script>
+
+    <title>Restauracja | Mortadello</title>
 </head>
 <body>
-    <br>
-    <form method="post" action="rezerwacjaInsert.php">
+    <div class="preload">
+        <div class="loadingCircle"></div>
+        <p class="text">Mortadello</p>
+    </div>
+    <div class="topBar">
+        <div class="container">
 
-        <label for="stoliki">Dostępne stoliki</label><br>
-        <select class="form_control" name="id_stolika" required>
-            <?php
-            $stoliki = mysqli_query($conn, "SELECT * FROM stoliki");
-            while($x = mysqli_fetch_array($stoliki)) {
-            ?>
+            <address class="topbar-item">
+                <div class="icon">
+                    <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+                </div>
 
-            <option value="<?php echo $x['id_stolika']; ?>"><?php echo "Stolik dla " . $x['pojemnosc'] . " osób" . " (ID Stolika: " . $x['id_stolika'] . ")"?></option>
-            <?php } ?>
-        </select><br>
+                <span class="span">
+                    Al. Kilińskiego 8 09-400 Płock
+                </span>
+            </address>
 
-        <label for="godzina_rezerwacji">Godzina rezerwacji</label><br>
-        <?php
-            $dostepneGodziny = array();
-            for ($godzina = 10; $godzina <= 21; $godzina++) {
-                for($minuta = 0; $minuta < 60; $minuta += 60) { 
-                    $czas = sprintf('%02d:%02d', $godzina, $minuta);
-                    $dostepneGodziny[] = $czas;
-                }
-            }
-            echo '<select name="godzina_rezerwacji" id="godzina_rezerwacji">';
-            echo '<option value="" selected disabled>Wybierz godzinę</option>';
-            foreach ($dostepneGodziny as $czas) {
-                echo "<option value='$czas'>$czas</option>";
-            }
-            echo '</select>';
-        ?><br>
+            <div class="separator"></div>
 
-        <label for="data_rezerwacji">Wybierz datę</label><br>
-        <input class="form_control" type="date" name="data_rezerwacji" id="data_rezerwacji" required><br>
-        
-        <label for="imie_klienta" style="">Imię klienta</label><br>
-        <input class="form-control" type="text" name="imie_klienta" id="imie_klienta" required><br>
-        
-        <label for="dodatkowe_informacje">Dodatkowe informacje</label><br>
-        <textarea class="form-control" name="dodatkowe_informacje" id="dodatkowe_informacje"></textarea><br>
+            <div class="topbar-item item-2">
+                <div class="icon">
+                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                </div>
 
-        <button type="submit">Zarezerwuj</button>
-    </form>
+                <span class="span">Codziennie: 10.00 do 21.00</span>
+            </div>
+
+        </div>
+    </div>
+
+    <header class="header" data-header>
+        <div class="container">
+
+            <a href="#" class="logo">
+                <img src="mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
+            </a>
+
+            <nav class="navbar" data-navbar>
+
+                <button class="closeButton" data-nav-toggle>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+
+                <a href="#" class="logo">
+                    <img src="mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
+                </a>
+
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                      <a href="#home" class="navbar-link hover-underline active">
+                        <div class="separator"></div>
+          
+                        <span class="span">Strona główna</span>
+                      </a>
+                    </li>
+          
+                    <li class="navbar-item">
+                      <a href="#menu" class="navbar-link hover-underline">
+                        <div class="separator"></div>
+          
+                        <span class="span">Menu</span>
+                      </a>
+                    </li>
+          
+                    <li class="navbar-item">
+                      <a href="#onas" class="navbar-link hover-underline">
+                        <div class="separator"></div>
+          
+                        <span class="span">O nas</span>
+                      </a>
+                    </li>
+          
+                    <li class="navbar-item">
+                      <a href="rezerwacjaStrona.php" class="navbar-link hover-underline">
+                        <div class="separator"></div>
+          
+                        <span class="span">Rezerwacja</span>
+                      </a>
+                    </li>
+          
+                    <li class="navbar-item">
+                      <a href="#" class="navbar-link hover-underline">
+                        <div class="separator"></div>
+          
+                        <span class="span">Kontakt</span>
+                      </a>
+                    </li>
+          
+                  </ul>
+
+                  <div class="text-center">
+                    <p class="headline-3 navbar-title">Wpadnij do nas</p>
+
+                    <address class="body-4">
+                        Al. Kilińskiego 8, <br>
+                        09-400, Płock
+                    </address>
+
+                    <p class="body-4 navbar-text">Codziennie: od 08.00 do 21.00</p>
+                  </div>
+
+            </nav>
+
+            <a href="#" class="button zarezerwuj">
+                <span class="text zarezweruj-1">Zarezerwuj stolik</span>
+
+                <span class="text zarezerwuj-2" >Zarezerwuj stolik</span>
+            </a>
+
+            <button class="nav-open-button" aria-label="open menu" data-nav-toggle>
+                <span class="line line-1"></span>
+                <span class="line line-2"></span>
+                <span class="line line-2"></span>
+            </button>
+
+            <div class="overlay" data-nav-toggle data-overlay></div>
+            
+        </div>
+
+    </header>
 </body>
 </html>
