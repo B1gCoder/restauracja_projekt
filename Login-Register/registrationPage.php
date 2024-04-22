@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../CSS/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
@@ -52,7 +52,7 @@
                 array_push($errors, "⚠️ Hasła nie są takie same");
             }
 
-            require_once "connection.php";
+            require_once "../connection.php";
             $sql = "SELECT * FROM konta WHERE email = '$email'";
             $result = mysqli_query($conn, $sql);
             $rowCount = mysqli_num_rows($result);

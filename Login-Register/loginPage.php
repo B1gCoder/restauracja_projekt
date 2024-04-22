@@ -1,5 +1,5 @@
 <?php
-require("connection.php");
+require("../connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ require("connection.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../CSS/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
@@ -31,7 +31,7 @@ require("connection.php");
         if (isset($_POST["login"])) {
             $email = $_POST["email"];
             $haslo = $_POST["haslo"];
-                require_once "connection.php";
+                require_once "../connection.php";
                 $sql = "SELECT * FROM konta WHERE email = '$email'";
                 $result = mysqli_query($conn, $sql);
                 $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -39,7 +39,7 @@ require("connection.php");
                     if (password_verify($haslo, $user["haslo"])) {
                         session_start();
                         $_SESSION["user"] = "yes";
-                        header("Location: adminPanel.php");
+                        header("Location: ../adminPanel.php");
                         die();
                     } else {
                         echo "<div class='alert alert-danger'>Hasło jest nieprawidłowe</div>";

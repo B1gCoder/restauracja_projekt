@@ -8,13 +8,13 @@ require("connection.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="skrypt.js"></script>
+    <script src="JS/skrypt.js"></script>
 
     <title>Restauracja | Mortadello</title>
 </head>
@@ -53,7 +53,7 @@ require("connection.php");
         <div class="container">
 
             <a href="#" class="logo">
-                <img src="mortadello.gif" width="190" height="62.5" alt="Mortadello - Strona główna">
+                <img src="Assets/mortadello.gif" width="190" height="62.5" alt="Mortadello - Strona główna">
             </a>
 
             <nav class="navbar" data-navbar>
@@ -63,7 +63,7 @@ require("connection.php");
                 </button>
 
                 <a href="#" class="logo">
-                    <img src="mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
+                    <img src="Assets/mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
                 </a>
 
                 <ul class="navbar-list">
@@ -93,7 +93,7 @@ require("connection.php");
                     </li>
           
                     <li class="navbar-item">
-                      <a href="rezerwacjaStrona.php" class="navbar-link hover-underline">
+                      <a href="Rezerwacja/rezerwacjaStrona.php" class="navbar-link hover-underline">
                         <div class="separator"></div>
           
                         <span class="span">Rezerwacja</span>
@@ -109,7 +109,7 @@ require("connection.php");
                     </li>
 
                     <li class="navbar-item">
-                      <a href="loginPage.php" class="navbar-link hover-underline">
+                      <a href="Login-Register/loginPage.php" class="navbar-link hover-underline">
                         <div class="separator"></div>
 
                         <span class="span">Zaloguj się</span>
