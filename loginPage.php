@@ -14,12 +14,14 @@ require("connection.php");
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="skrypt.js"></script>
     <title>Restauracja | Mortadello</title>
     <style>
         body {
-            margin-top: 300px;
+            margin-top: 250px;
             display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -49,20 +51,16 @@ require("connection.php");
         ?>
         <form action="loginPage.php" method="post">
             <div class="form-group">
-                <input type="email" placeholder="Podaj email" name="email" class="form-control">
+                <input type="email" placeholder="  Podaj email" name="email" class="form-control">
             </div>
             <div class="form-group">
-                <input type="password" placeholder="Podaj hasło" name="haslo" class="form-control">
+                <input type="password" placeholder="  Podaj hasło" name="haslo" class="form-control">
             </div>
             <div class="form-button">
-            <input type="submit" value="test" name="login">
-            <a class="button button-zaloguj" name="login">
-                <span class="text zaloguj-1">Zaloguj się</span>
-
-                <span class="text zaloguj-2" aria-hidden="true">Zaloguj się</span>
-            </a>
+                <input type="submit" value="Zaloguj się" name="login" class="button button-zaloguj">
             </div>
         </form>
+        <div><p class="hoverText-bezowy">Nie masz konta?<a href="registrationPage.php">Zarejestruj się tutaj</a></p></div>
     </div>
 </body>
 </html>

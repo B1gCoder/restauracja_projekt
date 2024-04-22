@@ -5,13 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
     <style>
         body {
             padding: 50px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 300px;
             margin: 0 auto;
             padding: 50px;
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -36,16 +40,16 @@
             $errors = array();
 
             if (empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phoneNumber)) {
-                array_push($errors,"Wszystkie dane są wymagane");
+                array_push($errors,"⚠️ Wszystkie dane są wymagane");
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                array_push($errors, "Adres email jest niepoprawny");
+                array_push($errors, "⚠️ Adres email jest niepoprawny");
             }
             if (strlen($password)<8) {
-                array_push($errors, "Hasło jest za krótkie (min. 8 znaków)");
+                array_push($errors, "⚠️ Hasło jest za krótkie (min. 8 znaków)");
             }
             if ($password!==$passwordRepeat) {
-                array_push($errors, "Hasła nie są takie same");
+                array_push($errors, "⚠️ Hasła nie są takie same");
             }
 
             require_once "connection.php";
@@ -53,7 +57,7 @@
             $result = mysqli_query($conn, $sql);
             $rowCount = mysqli_num_rows($result);
             if ($rowCount>0) {
-                array_push($errors,"Email jest już powiązany do innego konta");
+                array_push($errors,"⚠️ Email jest już powiązany do innego konta");
             }
             if (count($errors)>0) {
                 foreach ($errors as $error) {
@@ -66,7 +70,7 @@
                 if ($prepareStmt) {
                     mysqli_stmt_bind_param($stmt,"sss",$phoneNumber, $email, $passwordHash);
                     mysqli_stmt_execute($stmt);
-                    echo "<div class='alert alert-success'>Zarejestrowano pomyślnie.</div>";
+                    echo "<div class='alert alert-success'>✅ Zarejestrowano pomyślnie.</div>";
                 } else {
                     die("Ups.. coś poszło nie tak");
                 }
@@ -86,8 +90,8 @@
             <div class="form-group">
                 <input type="text" name="phone-number" class="form-control" placeholder="Numer telefonu:">
             </div>
-            <div class="form-group">
-                <input type="submit" value="Zarejestruj się" name="submit" class="btn btn-primary">
+            <div class="form-button">
+                <input type="submit" value="Zarejestruj się" name="submit" class="button button-zaloguj">
             </div>
         </form>
     </div>

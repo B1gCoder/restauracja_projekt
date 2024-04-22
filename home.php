@@ -53,7 +53,7 @@ require("connection.php");
         <div class="container">
 
             <a href="#" class="logo">
-                <img src="mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
+                <img src="mortadello.gif" width="190" height="62.5" alt="Mortadello - Strona główna">
             </a>
 
             <nav class="navbar" data-navbar>
