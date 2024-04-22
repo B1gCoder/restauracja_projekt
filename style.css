@@ -396,6 +396,80 @@ a {
     opacity: 1;
 }
 
+.form-button .button {
+    position: relative;
+    color: var(--bezowy);
+    font-size: var(--fontSize-label-2);
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letterSpacing-5);
+    max-width: max-content;
+    border: 2px solid var(--bezowy);
+    padding: 12px 45px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+.form-button .button::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 200%;
+    border-radius: var(--radius-circle);
+    background-color: var(--bezowy);
+    transition: var(--transition-2);
+    z-index: -1;
+}
+  
+.form-button .button .zaloguj { transition: var(--transition-1); }
+  
+.form-button .button .zaloguj-2 {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: max-content;
+    color: var(--dymny-czarny-1);
+}
+  
+.button:is(:hover, :focus-visible)::before { bottom: -50%; }
+  
+.button:is(:hover, :focus-visible) .zaloguj-1 { transform: translateY(-40px); }
+  
+.button:is(:hover, :focus-visible) .zaloguj-2 {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.button-zaloguj {
+    background-color: var(--czarny);
+    color: var(--czarny);
+}
+  
+.button-zaloguj::before { background-color: var(--dymny-czarny-1); }
+  
+.button-zaloguj .zaloguj-2 { color: var(--bialy); }
+
+/* LOGIN-PAGE */
+.container1 {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group input {
+    color: var(--bialy);
+    background-color: var(--bialy-alpha-10);
+    text-align: left 15px;
+}
+
 :root {
     /* KOLORKI */
     --bezowy: hsl(70, 40%, 80%);

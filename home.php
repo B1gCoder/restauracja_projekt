@@ -107,6 +107,14 @@ require("connection.php");
                         <span class="span">Kontakt</span>
                       </a>
                     </li>
+
+                    <li class="navbar-item">
+                      <a href="loginPage.php" class="navbar-link hover-underline">
+                        <div class="separator"></div>
+
+                        <span class="span">Zaloguj się</span>
+                      </a>
+                    </li>
           
                   </ul>
 
@@ -122,11 +130,10 @@ require("connection.php");
                   </div>
 
             </nav>
+            <a href="#" class="button button-zaloguj">
+                <span class="text zaloguj-1">Zaloguj się</span>
 
-            <a href="#" class="button zarezerwuj">
-                <span class="text zarezweruj-1">Zarezerwuj stolik</span>
-
-                <span class="text zarezerwuj-2" >Zarezerwuj stolik</span>
+                <span class="text zaloguj-2" aria-hidden="true">Zaloguj się</span>
             </a>
 
             <button class="nav-open-button" aria-label="open menu" data-nav-toggle>
