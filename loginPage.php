@@ -19,6 +19,7 @@ require("connection.php");
     <style>
         body {
             margin-top: 300px;
+            display: flex;
         }
     </style>
 </head>
@@ -33,7 +34,9 @@ require("connection.php");
                 $result = mysqli_query($conn, $sql);
                 $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 if ($user) {
-                    if (password_verify($password, $user["haslo"])) {
+                    if (password_verify($haslo, $user["haslo"])) {
+                        session_start();
+                        $_SESSION["user"] = "yes";
                         header("Location: adminPanel.php");
                         die();
                     } else {
@@ -44,7 +47,7 @@ require("connection.php");
                 }
         }
         ?>
-        <form action="loginPage.php" method="POST">
+        <form action="loginPage.php" method="post">
             <div class="form-group">
                 <input type="email" placeholder="Podaj email" name="email" class="form-control">
             </div>

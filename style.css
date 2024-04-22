@@ -445,7 +445,7 @@ a {
 }
   
 .button-zaloguj {
-    background-color: var(--czarny);
+    background-color: var(--jasny-czarny-1);
     color: var(--czarny);
 }
   
@@ -455,10 +455,13 @@ a {
 
 /* LOGIN-PAGE */
 .container1 {
+    height: 300px;
     max-width: 600px;
     margin: 0 auto;
     padding: 50px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-align: center;
+    justify-content: center;
 }
 .form-group {
     margin-bottom: 30px;
