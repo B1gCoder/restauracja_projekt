@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
     <style>
         body {
+            margin-top: 230px;
             padding: 50px;
         }
 

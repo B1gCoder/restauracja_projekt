@@ -1,4 +1,4 @@
-<?php require("connection.php"); ?>
+<?php require("../connection.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap">
+    <link rel="stylesheet" href="../CSS/style.css">
     <style>
         body {
             font-family: 'DM Sans';
-            background-color: hsla(210, 4%, 9%, 1);   
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,10 +24,23 @@
             max-width: 400px;
             width: 100%;
             padding: 20px;
-            background-color: rgb(255, 255, 255, 0.1);
+            background-color: hsla(210, 4%, 9%, 1);
             border-radius: 10px;
-            text-align: center;
             color: hsl(70, 40%, 80%);
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        .form-control {
+            color: hsla(0, 0%, 100%, 0.5);
+            background-color: var(--bialy-alpha-10);
+            width: 100%;
+            height: 35px;
+        }
+        .form-control:focus {
+            color: black;
+        }
+        .form-control[type="text"],
+        .form-control[type="textarea"] {
+            color: white;
         }
     </style>
 </head>
@@ -37,7 +50,7 @@
         <form method="post" action="rezerwacjaInsert.php">
 
             <label for="stoliki">Dostępne stoliki</label><br>
-            <select class="form_control" name="id_stolika" required>
+            <select class="form-control" name="id_stolika" required>
                 <?php
                 $stoliki = mysqli_query($conn, "SELECT * FROM stoliki");
                 while($x = mysqli_fetch_array($stoliki)) {
@@ -48,32 +61,33 @@
             </select><br>
 
             <label for="godzina_rezerwacji">Godzina rezerwacji</label><br>
-        <?php
-            $dostepneGodziny = array();
-            for ($godzina = 10; $godzina <= 21; $godzina++) {
-                for($minuta = 0; $minuta < 60; $minuta += 60) { 
-                    $czas = sprintf('%02d:%02d', $godzina, $minuta);
-                    $dostepneGodziny[] = $czas;
+            <?php
+                $dostepneGodziny = array();
+                for ($godzina = 10; $godzina <= 21; $godzina++) {
+                    for($minuta = 0; $minuta < 60; $minuta += 60) { 
+                        $czas = sprintf('%02d:%02d', $godzina, $minuta);
+                        $dostepneGodziny[] = $czas;
+                    }
                 }
-            }
-            echo '<select name="godzina_rezerwacji" id="godzina_rezerwacji">';
-            echo '<option value="" selected disabled>Wybierz godzinę</option>';
-            foreach ($dostepneGodziny as $czas) {
-                echo "<option value='$czas'>$czas</option>";
-            }
-            echo '</select>';
-        ?><br>
+                echo '<select class="form-control" name="godzina_rezerwacji" id="godzina_rezerwacji">';
+                echo '<option value="" selected disabled>Wybierz godzinę</option>';
+                foreach ($dostepneGodziny as $czas) {
+                    echo "<option value='$czas'>$czas</option>";
+                }
+                echo '</select>';
+            ?><br>
 
             <label for="data_rezerwacji">Wybierz datę</label><br>
-            <input class="form_control" type="date" name="data_rezerwacji" id="data_rezerwacji" required><br>
+            <input class="form-control" type="date" name="data_rezerwacji" id="data_rezerwacji" required><br>
 
-            <label for="imie_klienta" style="">Imię klienta</label><br>
+            <label for="imie_klienta">Imię klienta</label><br>
             <input class="form-control" type="text" name="imie_klienta" id="imie_klienta" required><br>
 
             <label for="dodatkowe_informacje">Dodatkowe informacje</label><br>
-            <textarea class="form-control" name="dodatkowe_informacje" id="dodatkowe_informacje"></textarea><br>
-
-            <button type="submit">Zarezerwuj</button>
+            <textarea class="form-control" name="dodatkowe_informacje" id="dodatkowe_informacje" style="color: white"></textarea><br>
+            <div class="form-button">
+            <input type="submit" value="Zarezerwuj" name="zarezerwuj" class="button button-zaloguj">
+            </div>
         </form>
     </div>
 </body>

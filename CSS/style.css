@@ -430,12 +430,16 @@ a {
     max-width: 600px;
     padding: 50px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    text-align: center;
+    text-align: left;
     justify-content: center;
 }
 .form-group {
     margin-bottom: 20px;
     margin-top: 10px;
+}
+
+.form-group input {
+    padding-left: 10px;
 }
 
 .form-group input {
@@ -455,6 +459,8 @@ a {
         color: var(--bezowy);
     }
 }
+
+/* REZERWACJA */
 
 :root {
     /* KOLORKI */

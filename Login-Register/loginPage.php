@@ -51,16 +51,16 @@ require("../connection.php");
         ?>
         <form action="loginPage.php" method="post">
             <div class="form-group">
-                <input type="email" placeholder="  Podaj email" name="email" class="form-control">
+                <input type="email" placeholder="Podaj email" name="email" class="form-control">
             </div>
             <div class="form-group">
-                <input type="password" placeholder="  Podaj hasło" name="haslo" class="form-control">
+                <input type="password" placeholder="Podaj hasło" name="haslo" class="form-control">
             </div>
             <div class="form-button">
                 <input type="submit" value="Zaloguj się" name="login" class="button button-zaloguj">
             </div>
         </form>
-        <div><p class="hoverText-bezowy">Nie masz konta?<a href="registrationPage.php">Zarejestruj się tutaj</a></p></div>
+        <div><p>Nie masz konta?<a href="registrationPage.php" class="hoverText-bezowy">Zarejestruj się tutaj</a></p></div>
     </div>
 </body>
 </html>
