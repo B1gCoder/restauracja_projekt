@@ -1,5 +1,12 @@
 <?php
 require("../connection.php");
+
+session_set_cookie_params(3600);
+session_start();
+if (isset($_SESSION["user"])) {
+    header("Location: ../adminPanel.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +14,7 @@ require("../connection.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

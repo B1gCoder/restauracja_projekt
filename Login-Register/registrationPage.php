@@ -1,3 +1,13 @@
+<?php
+require("../connection.php");
+
+session_set_cookie_params(3600);
+session_start();
+if (isset($_SESSION["user"])) {
+    header("Location: ../adminPanel.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

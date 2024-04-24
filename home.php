@@ -126,7 +126,7 @@ require("connection.php");
                         09-400, Płock
                     </address>
 
-                    <p class="body-4 navbar-text">Codziennie: od 08.00 do 21.00</p>
+                    <p class="body-4 navbar-text">Codziennie: od 10.00 do 21.00</p>
                   </div>
 
             </nav>
