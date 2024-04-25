@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         mysqli_query($conn, $query_insert1);
         mysqli_query($conn, $query_insert2);
+        header("Location: ../home.php");
     }
 }
 
