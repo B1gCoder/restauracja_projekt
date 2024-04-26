@@ -25,7 +25,7 @@ if (isset($_SESSION["user"])) {
             padding: 50px;
         }
 
-        .container {
+        .container2 {
             max-width: 300px;
             margin: 0 auto;
             padding: 50px;
@@ -38,7 +38,7 @@ if (isset($_SESSION["user"])) {
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container2">
         <?php
         if (isset($_POST["submit"])) {
             $email = $_POST["email"];
@@ -104,6 +104,7 @@ if (isset($_SESSION["user"])) {
             <div class="form-button">
                 <input type="submit" value="Zarejestruj się" name="submit" class="button button-zaloguj">
             </div>
+            <div><p>Masz już konto?<a href="loginPage.php" class="hoverText-bezowy">Zaloguj się</a></p></div>
         </form>
     </div>
 </body>
