@@ -9,14 +9,19 @@ if (!isset($_SESSION["user"])) {
 
 <?php 
 if(isset($_POST["submit"])) {
-    $idPotrawy = ($_POST["id_potrawy"]);
-    $nazwaPotrawy = $_POST["menu_nazwa"];
-    $kategoriaPotrawy = $_POST["menu_kategoria"];
-    $cenaPotrawy = $_POST["menu_cena"];
-    $opisPotrawy = $_POST["menu_opis"];
+    $idPotrawy = $_POST["idPotrawy"];
+    $nazwaPotrawy = $_POST["nazwaPotrawy"];
+    $kategoriaPotrawy = $_POST["kategoriaPotrawy"];
+    $cenaPotrawy = $_POST["cenaPotrawy"];
+    $opisPotrawy = $_POST["opisPotrawy"];
 
     $query = "INSERT INTO menu (id_potrawy, menu_nazwa, menu_kategoria, menu_cena, menu_opis) VALUES ('$idPotrawy', '$nazwaPotrawy','$kategoriaPotrawy','$cenaPotrawy','$opisPotrawy')";
-    mysqli_query($conn, $query);
+    
+    if(mysqli_query($conn, $query)) {
+        echo "Potrawa została dodana pomyślnie.";
+    } else {
+        echo "Błąd przy dodawaniu potrawy: " . mysqli_error($conn);
+    }
 }
 ?>
 
@@ -41,7 +46,7 @@ if(isset($_POST["submit"])) {
             </a>
         </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <form method="post">
             <label>ID Potrawy</label><br>
             <input type="text" name="idPotrawy" required value=""><br>
@@ -62,6 +67,33 @@ if(isset($_POST["submit"])) {
             <button type="submit" class="button button-zaloguj" name="submit">Dodaj potrawę</button>
             </div>
         </form>
+    </div> -->
+
+    <div class="form-group">
+        <div class="form-button">
+            <button id="toggle-showForm" class="button button-zaloguj">Dodawanie potraw</button>
+        </div>
+        <form id="dodawaniePotrawyForm" method="post" style="display:none;">
+            <label>ID Potrawy</label><br>
+            <input type="text" name="idPotrawy" required value=""><br>
+            <label>Nazwa potrawy</label><br>
+            <input type="text" name="nazwaPotrawy" required value=""><br>
+            <p>Kategoria potrawy</p>
+            <input type="radio" name="kategoriaPotrawy" required value="Burgery">
+            <label>Burgery</label>
+            <input type="radio" name="kategoriaPotrawy" required value="Sałatki">
+            <label>Sałatki</label>
+            <input type="radio" name="kategoriaPotrawy" required value="Pizza">
+            <label>Pizza</label><br>
+            <label>Cena potrawy</label><br>
+            <input type="text" name="cenaPotrawy" required value=""><br>
+            <label>Opis potrawy</label><br>
+            <textarea name="opisPotrawy" required value=""></textarea><br>
+            <div class="form-button">
+                <button type="submit" class="button button-zaloguj" name="submit">Dodaj potrawę</button>
+            </div>
+        </form>
     </div>
+    <script src="JS/DodawaniePotraw.js"></script>
 </body>
 </html>
