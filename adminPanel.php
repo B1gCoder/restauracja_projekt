@@ -23,6 +23,17 @@ if(isset($_POST["submit"])) {
         echo "Błąd przy dodawaniu potrawy: " . mysqli_error($conn);
     }
 }
+
+$queryMenu = "SELECT id_potrawy, menu_nazwa, menu_kategoria, menu_cena, menu_opis FROM menu";
+$resultMenu = mysqli_query($conn, $queryMenu);
+$menuItems = mysqli_fetch_all($resultMenu, MYSQLI_ASSOC);
+mysqli_free_result($resultMenu);
+
+$queryStoliki = "SELECT id_dostepnosc, id_stolika, data_rezerwacji, godzina_rezerwacji, status FROM dostepnosc_stolikow";
+$resultStoliki = mysqli_query($conn, $queryStoliki);
+$stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
+mysqli_free_result($resultStoliki);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,40 +50,42 @@ if(isset($_POST["submit"])) {
 </head>
 <body>
     <div class="container">
-        <h1>Witaj w panelu admina</h1>
+        <h2 class="text-Witaj">Witaj w panelu admina</h2>
         <div class="form-button">
-            <a href="Login-Register/logout.php">
+            <a href="Login-Register/logout.php" class="button-wyloguj">
                 <input type="submit" value="Wyloguj się" name="logout" class="button button-zaloguj">
             </a>
         </div>
     </div>
-    <!-- <div class="form-group">
-        <form method="post">
-            <label>ID Potrawy</label><br>
-            <input type="text" name="idPotrawy" required value=""><br>
-            <label>Nazwa potrawy</label><br>
-            <input type="text" name="nazwaPotrawy" required value=""><br>
-            <p>Kategoria potrawy</p>
-            <input type="radio" name="kategoriaPotrawy" required value="Burgery">
-            <label>Burgery</label>
-            <input type="radio" name="kategoriaPotrawy" required value="Sałatki">
-            <label>Sałatki</label>
-            <input type="radio" name="kategoriaPotrawy" required value="Pizza">
-            <label>Pizza</label><br>
-            <label>Cena potrawy</label><br>
-            <input type="text" name="cenaPotrawy" required value=""><br>
-            <label>Opis potrawy</label><br>
-            <textarea name="opisPotrawy" required value=""></textarea><br>
-            <div class="form-button">
-            <button type="submit" class="button button-zaloguj" name="submit">Dodaj potrawę</button>
-            </div>
-        </form>
-    </div> -->
-
+    <div class="menu-section">
+        <h2>Menu</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Potrawy</th>
+                    <th>Nazwa</th>
+                    <th>Kategoria</th>
+                    <th>Cena</th>
+                    <th>Opis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($menuItems as $item): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($item['id_potrawy']); ?></td>
+                        <td><?php echo htmlspecialchars($item['menu_nazwa']); ?></td>
+                        <td><?php echo htmlspecialchars($item['menu_kategoria']); ?></td>
+                        <td><?php echo htmlspecialchars($item['menu_cena']); ?></td>
+                        <td><?php echo htmlspecialchars($item['menu_opis']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-button">
+        <button id="toggle-showForm" class="button button-zaloguj">Dodawanie potraw</button>
+    </div>
     <div class="form-group">
-        <div class="form-button">
-            <button id="toggle-showForm" class="button button-zaloguj">Dodawanie potraw</button>
-        </div>
         <form id="dodawaniePotrawyForm" method="post" style="display:none;">
             <label>ID Potrawy</label><br>
             <input type="text" name="idPotrawy" required value=""><br>
@@ -93,6 +106,31 @@ if(isset($_POST["submit"])) {
                 <button type="submit" class="button button-zaloguj" name="submit">Dodaj potrawę</button>
             </div>
         </form>
+    </div>
+    <div class="stoliki-section">
+        <h2>Dostępność stolików</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Dostępności</th>
+                    <th>ID Stolika</th>
+                    <th>Data rezerwacji</th>
+                    <th>Godzina rezerwacji</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($stolikiItems as $item): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($item['id_dostepnosc']); ?></td>
+                        <td><?php echo htmlspecialchars($item['id_stolika']); ?></td>
+                        <td><?php echo htmlspecialchars($item['data_rezerwacji']); ?></td>
+                        <td><?php echo htmlspecialchars($item['godzina_rezerwacji']); ?></td>
+                        <td><?php echo htmlspecialchars($item['status']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
     <script src="JS/DodawaniePotraw.js"></script>
 </body>
