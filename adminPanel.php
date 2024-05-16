@@ -24,12 +24,23 @@ if(isset($_POST["submit"])) {
     }
 }
 
+if (isset($_POST["delete"])) {
+    $deleteId = $_POST["delete_id"];
+    $query = "DELETE FROM menu WHERE id_potrawy = '$deleteId'";
+
+    if (mysqli_query($conn, $query)) {
+        echo "Potrawa została usunięta pomyślnie.";
+    } else {
+        echo "Błąd przy usuwaniu potrawy: " . mysqli_error($conn);
+    }
+}
+
 $queryMenu = "SELECT id_potrawy, menu_nazwa, menu_kategoria, menu_cena, menu_opis FROM menu";
 $resultMenu = mysqli_query($conn, $queryMenu);
 $menuItems = mysqli_fetch_all($resultMenu, MYSQLI_ASSOC);
 mysqli_free_result($resultMenu);
 
-$queryStoliki = "SELECT id_dostepnosc, id_stolika, data_rezerwacji, godzina_rezerwacji, status FROM dostepnosc_stolikow";
+$queryStoliki = "SELECT id_rezerwacji, imie, id_stolika, godzina_rezerwacji, data_rezerwacji, liczba_miejsc, dodatkowe_informacje FROM rezerwacje";
 $resultStoliki = mysqli_query($conn, $queryStoliki);
 $stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
 mysqli_free_result($resultStoliki);
@@ -67,6 +78,7 @@ mysqli_free_result($resultStoliki);
                     <th>Kategoria</th>
                     <th>Cena</th>
                     <th>Opis</th>
+                    <th>Akcje</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +89,12 @@ mysqli_free_result($resultStoliki);
                         <td><?php echo htmlspecialchars($item['menu_kategoria']); ?></td>
                         <td><?php echo htmlspecialchars($item['menu_cena']); ?></td>
                         <td><?php echo htmlspecialchars($item['menu_opis']); ?></td>
+                        <td>
+                            <form method="post" action="">
+                                <input type="hidden" name="delete_id" value="<?php echo htmlspecialchars($item['id_potrawy']); ?>">
+                                <button type="submit" name="delete" class="button button-usun">Usuń</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -108,25 +126,29 @@ mysqli_free_result($resultStoliki);
         </form>
     </div>
     <div class="stoliki-section">
-        <h2>Dostępność stolików</h2>
+        <h2>Rezerwacje</h2>
         <table>
             <thead>
                 <tr>
-                    <th>ID Dostępności</th>
-                    <th>ID Stolika</th>
-                    <th>Data rezerwacji</th>
+                    <th>ID rezerwacji</th>
+                    <th>Imię</th>
+                    <th>ID stolika</th>
                     <th>Godzina rezerwacji</th>
-                    <th>Status</th>
+                    <th>Data rezerwacji</th>
+                    <th>Liczba miejsc</th>
+                    <th>Dodatkowe informacje</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($stolikiItems as $item): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['id_dostepnosc']); ?></td>
+                        <td><?php echo htmlspecialchars($item['id_rezerwacji']); ?></td>
+                        <td><?php echo htmlspecialchars($item['imie']); ?></td>
                         <td><?php echo htmlspecialchars($item['id_stolika']); ?></td>
-                        <td><?php echo htmlspecialchars($item['data_rezerwacji']); ?></td>
                         <td><?php echo htmlspecialchars($item['godzina_rezerwacji']); ?></td>
-                        <td><?php echo htmlspecialchars($item['status']); ?></td>
+                        <td><?php echo htmlspecialchars($item['data_rezerwacji']); ?></td>
+                        <td><?php echo htmlspecialchars($item['liczba_miejsc']); ?></td>
+                        <td><?php echo htmlspecialchars($item['dodatkowe_informacje']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
