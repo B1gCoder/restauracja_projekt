@@ -43,7 +43,7 @@ if (isset($_SESSION["user"])) {
         if (isset($_POST["submit"])) {
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $phoneNumber = $_POST["phone-number"];
+            $phoneNumber = $_POST["phone_number"];
             $passwordRepeat = $_POST["repeat_password"];
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -99,7 +99,7 @@ if (isset($_SESSION["user"])) {
                 <input type="password" name="repeat_password" class="form-control" placeholder="Powtórz hasło:">
             </div>
             <div class="form-group">
-                <input type="text" name="phone-number" class="form-control" placeholder="Numer telefonu:">
+                <input type="text" name="phone_number" class="form-control" placeholder="Numer telefonu:">
             </div>
             <div class="form-button">
                 <input type="submit" value="Zarejestruj się" name="submit" class="button button-zaloguj">

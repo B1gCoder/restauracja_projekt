@@ -52,10 +52,6 @@ session_start();
                                 echo "<option  value='$godzina'>$godzina</option>";
                             }
                             echo '</select>';
-                            if (isset($_GET['przerwa'])) {
-                                $przerwa = $_GET['przerwa'];
-                                echo "<p>$przerwa</p>";
-                            }
                             ?>
                         </div>
                         </div>

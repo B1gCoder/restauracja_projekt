@@ -104,9 +104,7 @@ CREATE TABLE `rezerwacje` (
 --
 
 INSERT INTO `rezerwacje` (`id_rezerwacji`, `imie`, `id_stolika`, `godzina_rezerwacji`, `data_rezerwacji`, `liczba_miejsc`, `dodatkowe_informacje`) VALUES
-(1020245, 'Mati', 5, '10:00:00', '2024-04-05', 6, 'allah'),
-(1111111, 'Default', 9, '19:15:00', '2023-10-05', 2, 'Description'),
-(1320242, 'Pascal', 2, '13:00:00', '2024-04-18', 4, 'glupi jestem');
+(1111111, 'Testowy', 9, '19:15:00', '2024-05-05', 2, 'OPIS');
 
 -- --------------------------------------------------------
 

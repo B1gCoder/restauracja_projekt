@@ -38,12 +38,10 @@ if (isset($_POST["delete"])) {
 $queryMenu = "SELECT id_potrawy, menu_nazwa, menu_kategoria, menu_cena, menu_opis FROM menu";
 $resultMenu = mysqli_query($conn, $queryMenu);
 $menuItems = mysqli_fetch_all($resultMenu, MYSQLI_ASSOC);
-mysqli_free_result($resultMenu);
 
 $queryStoliki = "SELECT id_rezerwacji, imie, id_stolika, godzina_rezerwacji, data_rezerwacji, liczba_miejsc, dodatkowe_informacje FROM rezerwacje";
 $resultStoliki = mysqli_query($conn, $queryStoliki);
 $stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
-mysqli_free_result($resultStoliki);
 
 ?>
 
