@@ -57,10 +57,6 @@ require ("connection.php");
 
       <nav class="navbar" data-navbar>
 
-        <button class="closeButton" data-nav-toggle>
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
-
         <a href="#" class="logo">
           <img src="Assets/mortadello-logo.png" width="190" height="62.5" alt="Mortadello - Strona główna">
         </a>

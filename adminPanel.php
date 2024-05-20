@@ -5,9 +5,64 @@ session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: Login-Register/loginPage.php");
 }
+
+// REJESTRACJA UZYTKOWNIKOW
+
+if (isset($_POST["submitRejestracja"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $phoneNumber = $_POST["phone_number"];
+    $passwordRepeat = $_POST["repeat_password"];
+
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    
+    $errors = array();
+
+    if (empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phoneNumber)) {
+        array_push($errors,"⚠️ Wszystkie dane są wymagane");
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        array_push($errors, "⚠️ Adres email jest niepoprawny");
+    }
+    if (strlen($password) < 8) {
+        array_push($errors, "⚠️ Hasło jest za krótkie (min. 8 znaków)");
+    }
+    if ($password !== $passwordRepeat) {
+        array_push($errors, "⚠️ Hasła nie są takie same");
+    }
+
+    $sql = "SELECT * FROM konta WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, 's', $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if (mysqli_num_rows($result) > 0) {
+        array_push($errors,"⚠️ Email jest już powiązany z innym kontem");
+    }
+
+    if (count($errors) > 0) {
+        foreach ($errors as $error) {
+            echo "<div class='alert alert-danger'>$error</div>";
+        }
+    } else {
+        $sql = "INSERT INTO konta (nr_telefonu, email, haslo) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $sql);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sss", $phoneNumber, $email, $passwordHash);
+            mysqli_stmt_execute($stmt);
+            echo "<div class='alert alert-success'>✅ Zarejestrowano pomyślnie.</div>";
+        } else {
+            die("Ups.. coś poszło nie tak");
+        }
+    }
+}
+
 ?>
 
 <?php 
+
+// DODAWANIE POTRAW DO MENU
+
 if(isset($_POST["submit"])) {
     $idPotrawy = $_POST["idPotrawy"];
     $nazwaPotrawy = $_POST["nazwaPotrawy"];
@@ -24,6 +79,8 @@ if(isset($_POST["submit"])) {
     }
 }
 
+// USUWANIE POTRAW Z MENU
+
 if (isset($_POST["delete"])) {
     $deleteId = $_POST["delete_id"];
     $query = "DELETE FROM menu WHERE id_potrawy = '$deleteId'";
@@ -35,9 +92,26 @@ if (isset($_POST["delete"])) {
     }
 }
 
+// USUWANIE REZERWACJI
+
+if (isset($_POST["delete1"])) {
+    $deleteId1 = $_POST["delete_id1"];
+    $query1 = "DELETE FROM rezerwacje WHERE id_rezerwacji = '$deleteId1'";
+
+    if (mysqli_query($conn, $query1)) {
+        echo "Rezerwacja została usunięta pomyślnie.";
+    } else {
+        echo "Błąd przy usuwaniu rezerwacji: " . mysqli_error($conn);
+    }
+}
+
+// QUERY DO TABELI MENU
+
 $queryMenu = "SELECT id_potrawy, menu_nazwa, menu_kategoria, menu_cena, menu_opis FROM menu";
 $resultMenu = mysqli_query($conn, $queryMenu);
 $menuItems = mysqli_fetch_all($resultMenu, MYSQLI_ASSOC);
+
+// QUERY DO TABELI REZERWACJE
 
 $queryStoliki = "SELECT id_rezerwacji, imie, id_stolika, godzina_rezerwacji, data_rezerwacji, liczba_miejsc, dodatkowe_informacje FROM rezerwacje";
 $resultStoliki = mysqli_query($conn, $queryStoliki);
@@ -64,7 +138,7 @@ $stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
             <a href="Login-Register/logout.php" class="button-wyloguj">
                 <input type="submit" value="Wyloguj się" name="logout" class="button button-zaloguj">
             </a>
-        </div>
+        </div><br>
     </div>
     <div class="menu-section">
         <h2>Menu</h2>
@@ -135,6 +209,7 @@ $stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
                     <th>Data rezerwacji</th>
                     <th>Liczba miejsc</th>
                     <th>Dodatkowe informacje</th>
+                    <th>Akcje</th>
                 </tr>
             </thead>
             <tbody>
@@ -147,10 +222,36 @@ $stolikiItems = mysqli_fetch_all($resultStoliki, MYSQLI_ASSOC);
                         <td><?php echo htmlspecialchars($item['data_rezerwacji']); ?></td>
                         <td><?php echo htmlspecialchars($item['liczba_miejsc']); ?></td>
                         <td><?php echo htmlspecialchars($item['dodatkowe_informacje']); ?></td>
+                        <td>
+                            <form method="post" action="">
+                                <input type="hidden" name="delete_id1" value="<?php echo htmlspecialchars($item['id_rezerwacji']); ?>">
+                                <button type="submit" name="delete1" class="button button-usun">Usuń</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
+    <div class="container2">
+        <h2>Rejestracja użytkowników</h2>
+        <form action="adminPanel.php" method="post">
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Email:">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Hasło:">
+            </div>
+            <div class="form-group">
+                <input type="password" name="repeat_password" class="form-control" placeholder="Powtórz hasło:">
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone_number" class="form-control" placeholder="Numer telefonu:">
+            </div>
+            <div class="form-button">
+                <input type="submit" value="Zarejestruj się" name="submitRejestracja" class="button button-zaloguj">
+            </div>
+        </form>
     </div>
     <script src="JS/DodawaniePotraw.js"></script>
 </body>

@@ -97,6 +97,13 @@ th {
     right: 20px;
 }
 
+.button-zarejestruj {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+}
+
+
 p {
     margin-bottom: 5px;
     margin-top: 5px;

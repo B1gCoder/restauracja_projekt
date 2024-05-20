@@ -36,9 +36,22 @@ if (isset($_SESSION["user"])) {
     <div class="container1">
         <?php
         if (isset($_POST["login"])) {
+
             $email = $_POST["email"];
             $haslo = $_POST["haslo"];
+
+            $admin_email = "test@test.pl";
+            $admin_haslo = "12345678";
+
                 require_once "../connection.php";
+
+                if ($email === $admin_email && $haslo === $admin_haslo) {
+                    session_start();
+                    $_SESSION["user"] = "admin";
+                    header("Location: ../adminPanel.php");
+                    exit();
+                }
+
                 $sql = "SELECT * FROM konta WHERE email = '$email'";
                 $result = mysqli_query($conn, $sql);
                 $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
