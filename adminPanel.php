@@ -6,9 +6,14 @@ if (!isset($_SESSION["user"])) {
     header("Location: Login-Register/loginPage.php");
 }
 
+$isAdmin = false;
+if (isset($_SESSION["user"]) && $_SESSION["user"] === "admin") {
+    $isAdmin = true;
+}
+
 // REJESTRACJA UZYTKOWNIKOW
 
-if (isset($_POST["submitRejestracja"])) {
+if (isset($_POST["submitRejestracja"]) && $isAdmin) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $phoneNumber = $_POST["phone_number"];
@@ -63,7 +68,7 @@ if (isset($_POST["submitRejestracja"])) {
 
 // DODAWANIE POTRAW DO MENU
 
-if(isset($_POST["submit"])) {
+if(isset($_POST["submit"]) && $isAdmin) {
     $idPotrawy = $_POST["idPotrawy"];
     $nazwaPotrawy = $_POST["nazwaPotrawy"];
     $kategoriaPotrawy = $_POST["kategoriaPotrawy"];
@@ -81,7 +86,7 @@ if(isset($_POST["submit"])) {
 
 // USUWANIE POTRAW Z MENU
 
-if (isset($_POST["delete"])) {
+if (isset($_POST["delete"]) && $isAdmin) {
     $deleteId = $_POST["delete_id"];
     $query = "DELETE FROM menu WHERE id_potrawy = '$deleteId'";
 
@@ -94,7 +99,7 @@ if (isset($_POST["delete"])) {
 
 // USUWANIE REZERWACJI
 
-if (isset($_POST["delete1"])) {
+if (isset($_POST["delete1"]) && $isAdmin) {
     $deleteId1 = $_POST["delete_id1"];
     $query1 = "DELETE FROM rezerwacje WHERE id_rezerwacji = '$deleteId1'";
 

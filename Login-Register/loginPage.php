@@ -80,7 +80,7 @@ if (isset($_SESSION["user"])) {
                 <input type="submit" value="Zaloguj się" name="login" class="button button-zaloguj">
             </div>
         </form>
-        <div><p>Nie masz konta?<a href="registrationPage.php" class="hoverText-bezowy">Zarejestruj się tutaj</a></p></div>
+        <!-- <div><p>Nie masz konta?<a href="registrationPage.php" class="hoverText-bezowy">Zarejestruj się tutaj</a></p></div> -->
     </div>
 </body>
 </html>
