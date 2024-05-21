@@ -96,7 +96,7 @@ require ("connection.php");
           </li>
 
           <li class="navbar-item">
-            <a href="#" class="navbar-link hover-underline">
+            <a href="#kontakt" class="navbar-link hover-underline">
               <div class="separator"></div>
 
               <span class="span">Kontakt</span>
@@ -126,8 +126,6 @@ require ("connection.php");
                 <source src="Assets/mortadello-tlo.mp4" type="video/mp4" class="vid-cover">
               </video>
             </div>
-
-            <p class="label-2 section-subtitle slider-reveal"></p>
 
           </li>
 
