@@ -24,13 +24,32 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         echo "Niepowodzenie (QUERY): " . mysqli_error($conn);
     }
 
-    // Szukanie dostępnych stolików
-    $idStolikowString = empty($idStolikow) ? "0" : implode(",", $idStolikow);
-    $dostepneStolikiQuery = "SELECT id_stolika, pojemnosc FROM stoliki WHERE pojemnosc >= '$liczba_miejsc' AND id_stolika NOT IN ($idStolikowString)";
-    $dostepneResult = mysqli_query($conn, $dostepneStolikiQuery);
+    if (!empty($idStolikow)) {
+        $idStolikowString = implode(",", $idStolikow);
+        $dostepneStoliki = "SELECT id_stolika, pojemnosc FROM stoliki WHERE pojemnosc >= '$liczba_miejsc' AND id_stolika NOT IN ($idStolikowString)";
+        $dostepneResult = mysqli_query($conn, $dostepneStoliki);
 
-    $rezerwacjaLink = "rezerwacjaStrona.php?data_rezerwacji=$wybranaData&liczba_miejsc=$liczba_miejsc&godzina_rezerwacji=$wybranaGodzina&zarezerwowane_id_stolika=$idStolikowString";
-    header("Location: $rezerwacjaLink");
+        if ($dostepneResult) {
+            while ($row = mysqli_fetch_assoc($dostepneResult)) {
+                echo "ID Dostępnego stolika " . $row["id_stolika"] . "<br>";
+                echo "pojemnosc: " . $row["pojemnosc"] . "<br>";
+                
+            }
+
+            $idStolikowString = implode(",", $idStolikow);
+            $rezerwacjaLink = "rezerwacjaStrona.php?data_rezerwacji=$wybranaData&liczba_miejsc=$liczba_miejsc&godzina_rezerwacji=$wybranaGodzina&reserved_id_stolika=$idStolikowString";
+
+            header("Location: $rezerwacjaLink");
+            exit();
+            
+        } else {
+            echo "Niepowodzenie (QUERY): " . mysqli_error($conn);
+        }
+    } else {
+        $rezerwacjaLink = "rezerwacjaStrona.php?data_rezerwacji=$wybranaData&liczba_miejsc=$liczba_miejsc&godzina_rezerwacji=$wybranaGodzina&reserved_id_stolika=0";
+        header("Location: $rezerwacjaLink");
+    }
+
     exit();
 }
 ?>
